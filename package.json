@@ -1,5 +1,5 @@
 {
-  "name": "teambuilder",
+  "name": "TeamBuildz",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "^8.2.4",
-    "jest": "^28.1.2"
+    "jest": "^28.1.2",
+    "node": "^18.5.0"
   }
 }
