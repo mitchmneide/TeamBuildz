@@ -1,17 +1,17 @@
 const inquirer = require("inquirer")
 const fs = require('fs');
 const generateSite = require('./src/generateSite');
-const Manager =require('./lib/Manager');
-const Engineer =require('./lib/Engineer');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-console.log('hello')
+
 const teamsArr = [];
 const teamManager = () => {
     return inquirer.prompt([
         {
-            type:'input',
-            name:'name',
+            type: 'input',
+            name: 'name',
             message: "What is the Team Managers name?"
         },
         {
@@ -20,7 +20,7 @@ const teamManager = () => {
             message: "what is the Managers ID"
         },
         {
-            type:'input',
+            type: 'input',
             name: 'email',
             message: "What is the managers email?"
         },
@@ -30,11 +30,11 @@ const teamManager = () => {
             message: "What is the Managers office number?"
         }
     ])
-    .then(managerData => {
-        const {name, id, email, officeNumber} = managerData;
-        const manager = new Manager(name, id, email, officeNumber);
-        teamsArr.push(manager)
-    })
+        .then(managerData => {
+            const { name, id, email, officeNumber } = managerData;
+            const manager = new Manager(name, id, email, officeNumber);
+            teamsArr.push(manager)
+        })
 };
 
 const addTeam = () => {
@@ -46,8 +46,8 @@ const addTeam = () => {
             choices: ['Intern', 'Engineer']
         },
         {
-            type:'input',
-            name:'name',
+            type: 'input',
+            name: 'name',
             message: "What is the Employee's name?"
         },
         {
@@ -61,7 +61,7 @@ const addTeam = () => {
             message: "What is the Employees email?"
         },
         {
-            type:'input',
+            type: 'input',
             name: 'school',
             message: "What school did the Intern go to ?",
             when: (input) => input.role === "Intern"
@@ -79,43 +79,43 @@ const addTeam = () => {
             default: false
         }
     ])
-    .then(teamData => {
-        let {name, id , email, role, github, school, confirmAdd} = teamData;
-        let employee;
-        if (role === "Intern") {
-            employee = new Intern(name, id, email, school);
-        } 
-        else if (role === "Engineer") {
-            employee = new Engineer(name,id,email, github)
-        }
-        teamsArr.push(employee);
-        if (confirmAdd) {
-            return addTeam(teamsArr);
-        } else {
-            return teamsArr
-        }
+        .then(teamData => {
+            let { name, id, email, role, github, school, confirmAdd } = teamData;
+            let employee;
+            if (role === "Intern") {
+                employee = new Intern(name, id, email, school);
+            }
+            else if (role === "Engineer") {
+                employee = new Engineer(name, id, email, github)
+            }
+            teamsArr.push(employee);
+            if (confirmAdd) {
+                return addTeam(teamsArr);
+            } else {
+                return teamsArr
+            }
 
-    })
+        })
 };
 const writeFile = data => {
-    fs.writeFile("./dist/index.html",data , err => {
-        if(err) {
+    fs.writeFile("./dist/index.html", data, err => {
+        if (err) {
             console.log(err);
             return;
-        }else {
+        } else {
             console.log("Your team has been created check the index html file in /dist folder")
         }
     })
 };
 
 teamManager()
-.then(addTeam)
-.then(teamsArr => {
-    return generateSite(teamsArr);
-})
-.then(pageHTML => {
-    return writeFile(pageHTML);
-})
-.catch(err => {
-    console.log(err);
-});
+    .then(addTeam)
+    .then(teamsArr => {
+        return generateSite(teamsArr);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .catch(err => {
+        console.log(err);
+    });

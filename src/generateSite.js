@@ -1,6 +1,6 @@
 
 function generateSite(team) {
-const managerCard = manager => {
+  const managerCard = manager => {
     return `
     <div class="card" style="width: 18rem;">
   <div class="bg-danger">
@@ -18,8 +18,8 @@ const managerCard = manager => {
 </div>
     
     `
-}
-const engineerCard = engineer => {
+  }
+  const engineerCard = engineer => {
     return `
     <div class="card" style="width: 18rem;">
   <div class="bg-success">
@@ -37,9 +37,9 @@ const engineerCard = engineer => {
 </div>
     
     `
-}
+  }
 
-const internCard = intern => {
+  const internCard = intern => {
     return `
     <div class="card" style="width: 18rem;">
   <div class="bg-warning">
@@ -57,28 +57,28 @@ const internCard = intern => {
 </div>
     
     `
-}
+  }
 
-pageArray = []
+  pageArray = []
 
-pageArray.push(
+  pageArray.push(
     team.filter(employee => employee.getRole() === "Manager")
-    .map(manager => managerCard(manager))
-)
+      .map(manager => managerCard(manager))
+  )
 
-pageArray.push(
-    team.filter(employee => employee.getRole()=== "Engineer")
-    .map(engineer => engineerCard(engineer)).join("")
-)
-pageArray.push(
+  pageArray.push(
+    team.filter(employee => employee.getRole() === "Engineer")
+      .map(engineer => engineerCard(engineer)).join("")
+  )
+  pageArray.push(
     team.filter(employee => employee.getRole() === "Intern")
-    .map(intern => internCard(intern)).join("")
-)
-return pageArray.join("")
+      .map(intern => internCard(intern)).join("")
+  )
+  return pageArray.join("")
 }
 
 module.exports = team => {
-    return `
+  return `
     <!DOCTYPE html> 
     <html lang="en"> 
     <head>
